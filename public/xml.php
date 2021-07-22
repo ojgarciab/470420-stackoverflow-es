@@ -17,7 +17,7 @@ $ejemplo = [
         "descripcion" => "Descripción noticia 1",
         "autor" => "Autor 1",
         "fecha" => "2021-01-01",
-        "imagen" => "",
+        "imagen" => file_get_contents("img/teclado.jpg"),
     ],
     [
         "idnoticia" => "2",
@@ -25,7 +25,7 @@ $ejemplo = [
         "descripcion" => "Descripción noticia 2",
         "autor" => "Autor 2",
         "fecha" => "2021-02-02",
-        "imagen" => "",
+        "imagen" => file_get_contents("img/matrix.jpg"),
     ],
     [
         "idnoticia" => "3",
@@ -33,7 +33,7 @@ $ejemplo = [
         "descripcion" => "Descripción noticia 3",
         "autor" => "Autor 3",
         "fecha" => "2021-03-03",
-        "imagen" => "",
+        "imagen" => file_get_contents("img/perro.jpg"),
     ],
 ];
 
@@ -48,7 +48,12 @@ while ($fila = array_shift($ejemplo)) {
     $documento->appendChild($dom->createElement('descripcio', $fila['descripcion']));
     $documento->appendChild($dom->createElement('auto', $fila['autor']));
     $documento->appendChild($dom->createElement('fech', $fila['fecha']));
+    /* Codificamos en BASE64 la imagen ya que los datos binarios en CDATA no son compatibles con utf-8 */
     $documento->appendChild($dom->createElement('img', base64_encode($fila['imagen'])));
+    /* En caso de serlo sería así */
+    /*$documento
+        ->appendChild($dom->createElement('img'))
+        ->appendChild($dom->createCDATASection($fila['imagen']));*/
     /* Agregamos el elemento "documento" al elemento raíz "datos" */
     $datos->appendChild($documento);
 }

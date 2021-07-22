@@ -71,9 +71,14 @@
             oCelda.colspan = 4;             
             oCelda.textContent = (oPersonas[i].querySelector("descripcio").textContent);
             
-        
-            oCelda = oFila.insertCell(-1);      
-            oCelda.textContent = (oPersonas[i].querySelector("img").textContent);
+
+            oCelda = oFila.insertCell(-1);
+
+            /* Creamos la imagen */
+            var imagen = document.createElement('img');
+            imagen.src = "data:image/gif;base64," + (oPersonas[i].querySelector("img").textContent)
+
+            oCelda.appendChild(imagen);
                 
         }
         document.querySelector("#listado").innerHTML = "";
